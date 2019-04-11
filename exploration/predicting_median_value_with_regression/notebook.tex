@@ -1,0 +1,829 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Boston Housing Analysis}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{predicting-median-house-value-with-regression}{%
+\section{Predicting Median House Value with
+Regression}\label{predicting-median-house-value-with-regression}}
+
+\textbf{Author}: Devin Thai (devin.thai.5@gmail.com)
+
+\hypertarget{introduction}{%
+\subsection{Introduction}\label{introduction}}
+
+Today, we are going to be looking at the Boston Housing dataset,
+available \href{https://www.kaggle.com/c/boston-housing}{here}. Our goal
+is not to achieve a high score, but to explore the data and insight
+workflow. With that being said, today's learning method of choice will
+be \textbf{Linear Regression}. This is because Linear Regression is
+perfect for predicting quantitative values such as the \textbf{median
+value of homes} and is one of the more interpretable machine learning
+methods.
+
+Now, let's take care of some quick housekeeping.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Lasso}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{logging}
+        \PY{n}{logging}\PY{o}{.}\PY{n}{basicConfig}\PY{p}{(}\PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}(message)s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{level}\PY{o}{=}\PY{n}{logging}\PY{o}{.}\PY{n}{INFO}\PY{p}{,} \PY{n}{stream}\PY{o}{=}\PY{n}{sys}\PY{o}{.}\PY{n}{stdout}\PY{p}{)}
+        \PY{k+kn}{from} \PY{n+nn}{boston\PYZus{}housing} \PY{k}{import} \PY{n}{data}
+        \PY{k+kn}{from} \PY{n+nn}{boston\PYZus{}housing} \PY{k}{import} \PY{n}{model}
+\end{Verbatim}
+
+
+    We can now use pandas to import the dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/Volumes/2 TB Storage/datascience/boston\PYZus{}housing/exploration/data/train.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Let's take a look at the variables we will be dealing with.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}    ID     crim    zn  indus  chas    nox     rm   age     dis  rad  tax  \textbackslash{}
+        0   1  0.00632  18.0   2.31     0  0.538  6.575  65.2  4.0900    1  296   
+        1   2  0.02731   0.0   7.07     0  0.469  6.421  78.9  4.9671    2  242   
+        2   4  0.03237   0.0   2.18     0  0.458  6.998  45.8  6.0622    3  222   
+        3   5  0.06905   0.0   2.18     0  0.458  7.147  54.2  6.0622    3  222   
+        4   7  0.08829  12.5   7.87     0  0.524  6.012  66.6  5.5605    5  311   
+        
+           ptratio   black  lstat  medv  
+        0     15.3  396.90   4.98  24.0  
+        1     17.8  396.90   9.14  21.6  
+        2     18.7  394.63   2.94  33.4  
+        3     18.7  396.90   5.33  36.2  
+        4     15.2  395.60  12.43  22.9  
+\end{Verbatim}
+            
+    ``medv'' is the median value of owner-occupied homes in thousands of
+dollars. in a particular area. This is our ``target'' variable, the
+value that we want to predict using the other variables.
+
+``ID'' is simply an identification number. This will be removed from our
+set of variables as it does not provide any useful information about the
+houses in their respective areas.
+
+``crim'' is the per capita crime rate by town.
+
+``zn'' is the proportion of residential land zoned for lots over 25,000
+sq. ft.
+
+``indus'' is proportion of non-retail business acres per town.
+
+``chas'' is a Charles River dummy variable. A dummy variable is a
+variable whose value represents whether or not something is happening.
+In this case, ``chas''' value is 1 if the Charles River bounds the
+tract/area around the homes and 0 if not.
+
+``nox'' is the nitrogen dioxide concentration in parts per 10 million.
+This is likely an indicator of pollution in the area.
+
+``rm'' is the average number of rooms per home.
+
+``age'' is actually proportion of owner-occupied units built prior to
+1940. It is \textbf{not} the average age of homes.
+
+``dis'' is a weighted mean of distances to five of Boston employment
+centers.
+
+``rad'' is an index of accessibility to radial highways. Because this is
+an index, its values most likely represent groupings instead of some
+numerical quantity. We will check for this soon and convert ``rad'' into
+a dummy variable if necessary.
+
+``tax'' is the full-value property-tax rate per \$10,000.
+
+``ptratio'' is the student to teacher ratio by town.
+
+``black'' is calculated using the formula 1000(Bk - 0.63)\^{}2, where Bk
+is the proportion of blacks by town. This is not a very ethical use of
+data, so we will be leaving this variable out of our predictor
+variables.
+
+``lstat'' is lower status of the population (percent). This is basically
+a measure of poverty.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{more-housekeeping}{%
+\subsection{More Housekeeping}\label{more-housekeeping}}
+
+Before we can start doing any analysis, we have to verify a few more
+things about our data.
+
+First, we check for missing data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} crim       0
+        zn         0
+        indus      0
+        chas       0
+        nox        0
+        rm         0
+        age        0
+        dis        0
+        rad        0
+        tax        0
+        ptratio    0
+        lstat      0
+        medv       0
+        dtype: int64
+\end{Verbatim}
+            
+    It is important to make sure that none of our data has missing entries.
+Our data manipulation package, pandas, handles missing data as if they
+were 0's. This leads to inaccurate/skewed predictions if left untreated.
+Normally we have come up with a way to ``impute'', or fill in, these
+missing values before moving on, however, none of our variables are
+missing any entries.
+
+Next, we have to make sure our variables are in suitable types.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 333 entries, 0 to 332
+Data columns (total 13 columns):
+crim       333 non-null float64
+zn         333 non-null float64
+indus      333 non-null float64
+chas       333 non-null int64
+nox        333 non-null float64
+rm         333 non-null float64
+age        333 non-null float64
+dis        333 non-null float64
+rad        333 non-null int64
+tax        333 non-null int64
+ptratio    333 non-null float64
+lstat      333 non-null float64
+medv       333 non-null float64
+dtypes: float64(10), int64(3)
+memory usage: 33.9 KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chas}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} array([0, 1])
+\end{Verbatim}
+            
+    Recall that ``chas'' is supposed to be a dummy variable. That means its
+values must be 0 or 1, which is true in this case, so we will not have
+to make any changes to ``chas''.
+
+We previously pointed out that ``rad'' is an index and might need to be
+converted to a series of dummy variables. To check this, we will look at
+what unique values ``rad'' contains.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rad}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} array([ 1,  2,  3,  5,  4,  8,  6,  7, 24])
+\end{Verbatim}
+            
+    Notice that ``rad'' does not have very many unique values. These values
+are indices that indicate accessibility to radial highways. Each area
+with the same ``rad'' value has the same level of accessibility, so each
+index should be treated as its own group. We can achieve this by
+creating a series of dummy variables to represent each index.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rad}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rad}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{rad\PYZus{}dummies} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rad}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rad}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{rad\PYZus{}dummies}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}    1   2   3   4   5   6   7   8   24
+         0   1   0   0   0   0   0   0   0   0
+         1   0   1   0   0   0   0   0   0   0
+         2   0   0   1   0   0   0   0   0   0
+         3   0   0   1   0   0   0   0   0   0
+         4   0   0   0   0   1   0   0   0   0
+\end{Verbatim}
+            
+    Let us elaborate more on the meaning of our dummy variables. Notice in
+the above table that the ``0'' entry has a value of 1 under 1 and 0
+everywhere else. This means that ``0'' belongs in group 1 and not in any
+of the others. Similarly, ``1'' is a member of group 2 and not any of
+the others. Next, ``2'' is a member of group 3 and so on.
+
+Next, we need to check the distributions of our variables. We do this by
+looking at histograms of our variables.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{data}\PY{o}{.}\PY{n}{distmap}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 0
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We are looking at the horizontal axes of these histograms. Notice that
+the ranges of our data vary significantly. This is important because it
+is difficult to compare values of different variables with different
+ranges. For example, let's look at a value of 25 in the context of both
+the ``zn'' and ``indus'' variables. At a purely quantitative level, 25
+is equal to 25. However it is not that simple. 25 is on the lower end of
+``zn''`s range whereas 25 is on the upper end of ``indus''\,' range. We
+have to reconcile this information in our analysis. In order to do so,
+we are going to ``scale'' our variables by mapping each point into the
+``standard normal'' distribution. That is done with the following
+formula:
+
+\(Z = \frac{X-\mu}{\sigma}\), where Z is the the value in the standard
+normal distribution, \(\mu\) is the average value of a given variable, X
+is the particular value of the variable, and \(\sigma\) is the standard
+deviation of the variable.
+
+Each of the Z values represents information about the original value's
+distance from the mean/average value of the variable. When we compare Z
+values, we are comparing relative distances rather than magnitudes,
+making comparisons more meaningful. This should also bring each of the
+variables' respective ranges closer together. This makes it much easier
+to compare values across variables.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{features} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{scaler}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{data}\PY{o}{.}\PY{n}{distmap}\PY{p}{(}\PY{n}{features}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 0
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see, all of the ranges have become much closer in scale.
+
+Now that we've taken care of all of this, we can add our dummy variables
+to our data and move on.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{scaled\PYZus{}feats} \PY{o}{=} \PY{n}{features}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{medv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{chas\PYZus{}medv} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{scaled\PYZus{}feats}\PY{o}{.}\PY{n}{columns}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{features} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{scaled\PYZus{}feats}\PY{p}{,} \PY{n}{chas\PYZus{}medv}\PY{p}{,} \PY{n}{rad\PYZus{}dummies}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{checking-for-multicolinearity}{%
+\subsection{Checking for
+Multicolinearity}\label{checking-for-multicolinearity}}
+
+Now we need to look at the interactions between our variables. This is
+important because we want to include as little redundant information as
+possible. Removing redundant information simplifies our model and makes
+it more generalizable.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{data}\PY{o}{.}\PY{n}{tol\PYZus{}vif\PYZus{}table}\PY{p}{(}\PY{n}{features}\PY{p}{,} \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{11}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}             Correlation  Tolerance       VIF
+         tax   24       0.901940   0.186504  5.361811
+         nox   dis      0.769364   0.408079  2.450507
+         age   dis      0.764208   0.415987  2.403923
+         indus nox      0.750087   0.437369  2.286400
+         lstat medv     0.738600   0.454470  2.200365
+         nox   age      0.736000   0.458305  2.181955
+         indus tax      0.708313   0.498292  2.006854
+               dis      0.702327   0.506737  1.973411
+         rm    medv     0.689598   0.524454  1.906743
+         crim  24       0.674004   0.545718  1.832448
+         nox   tax      0.670722   0.550131  1.817747
+\end{Verbatim}
+            
+    These are the top 11 pairs of variables along with their correlation,
+tolerance, and VIF (Variance Inflation Factor) values.
+
+Correlation is a measure of what proportion of variance in one variable
+can be explained by the variance in the other variable. In other words,
+how much information in one variable can be adequately represented by
+another variable. This is what we mean when we talk about redundant
+information. If one variable can explain most of the information
+provided by another variable, it is reasonable to just get rid of the
+extraneous variable.
+
+Tolerance is calculated using the formula: Tolerance = \(1-r^{2}\),
+where r is the correlation value. Tolerance \textless{} 0.1 tends to
+indicate problematic relationships.
+
+VIF is calculated using the formula: VIF =
+\(\frac{1}{\text{Tolerance}}\). Similarly, VIF \textgreater{} 10 tends
+to be problematic
+
+Using the guidelines specified, we do not have to worry about
+colinearity between our variables.
+
+    \hypertarget{dimensionality-reduction}{%
+\subsection{Dimensionality Reduction}\label{dimensionality-reduction}}
+
+Dimensionality reduction is another way in which we can simplify our
+model. As previously mentioned, we can look at the interactions between
+our variables to see if there are any we can get rid of. Now we can
+compare model performance and model complexity to simplify our model. To
+do this, we are going to be using another form of regression called
+LASSO.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{data}\PY{o}{.}\PY{n}{lasso\PYZus{}reduction}\PY{p}{(}\PY{n}{features}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}        Used Features  Training Score  Test Score
+         1                  3        0.630353    0.649038
+         0.1               15        0.708203    0.725419
+         0.01              19        0.736713    0.724902
+         0.001             19        0.737105    0.721835
+\end{Verbatim}
+            
+    Judging by the graph, 15 seems to be the optimal amount of features to
+use. This is because when we use 19 features, the training and test
+scores are pretty similar, but we have to use 4 additional features.
+More features means greater odds that the model will overfit and
+generalize less accurately. So, we will consider just using the features
+from the 0.1 LASSO regression.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{lasso01\PYZus{}feats} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{get\PYZus{}lasso\PYZus{}coef}\PY{p}{(}\PY{n}{features}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{model-creation}{%
+\subsection{Model Creation}\label{model-creation}}
+
+Now that we are done treating our data and simplifying our model, we can
+finally create our linear regression model. Compared to the rest of this
+notebook, this is probably the simplest part.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{lin\PYZus{}reg}\PY{p}{,} \PY{n}{ctable} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{run\PYZus{}linear\PYZus{}regression}\PY{p}{(}\PY{n}{features}\PY{p}{,}\PY{n}{lasso01\PYZus{}feats}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The prediction accuracy with the linear regression model is 72.2\%
+
+    \end{Verbatim}
+
+    The expected prediction accuracy for the linear regression model we
+created is 72.2\%. This is a moderately good prediction accuracy.
+However, we did not chose Linear Regression for its prediction accuracy,
+but rather for its interpretability. Now we are going to draw insight
+about our model by interpretting the coefficients of our model.
+
+\hypertarget{linear-regression-interpretation}{%
+\subsubsection{Linear Regression
+Interpretation}\label{linear-regression-interpretation}}
+
+What do I mean by coefficients? The Linear Regression method is defined
+as such:
+
+\(\hat{y} = \beta_{0}X_{0} + ... + \beta_{n}X_{n}\), where \(\hat{y}\)
+is the predicted value, \(X_{i}\) is the \(i^{th}\) predictor variable,
+and \(\beta_{i}\) is the coefficient for the \(i^{th}\) variable.
+
+If we can understand what each \(\beta_{i}\) means, then we can extract
+some insights about how each predictor variable affects the prediction.
+The following table shows each variable along with its coefficient.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{ctable}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}          Coefficients
+         crim        -1.097766
+         zn           1.033705
+         nox         -1.838442
+         rm           2.538782
+         age         -0.490224
+         dis         -2.970808
+         ptratio     -1.502282
+         lstat       -4.209550
+         chas         4.156605
+         1           -3.837608
+         3            1.755164
+         4           -1.121471
+         6           -3.392725
+         8            2.631930
+         24           2.626204
+\end{Verbatim}
+            
+    We have to be aware of the fact that we scaled our predictors because
+this changes the way that we interpret our coefficients. Normally we
+would say that an increase of 1 unit of \(X_{i}\) is associated with a
+\(\beta_{i}\) change in \(\hat{y}\). But because we have remapped each
+\(X_{i}\) to \(Z_{i}\), in the standard normal distribution, we now
+have:
+
+\(Z_{i} = \frac{X{i}-\mu_{i}}{\sigma_{i}}\), where each \(X_{i}\) is the
+original \(i^{th}\) variable, \(\mu_{i}\) is the mean/average of the
+\(i^{th}\) variable, and \(\sigma_{i}\) is the standard deviation of the
+\(i^{th}\) variable.
+
+Then we will interpret each coefficient as follows: For each
+\(\sigma_{i}\) increase in \(X_{i}\), there is as associated
+\(\beta_{i}\) change in \(\hat{y}\). In other words, for each standard
+deviation change of an associated variable, there is a \(\beta_{i}\)
+change in \(\hat{y}\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{model}\PY{o}{.}\PY{n}{coef\PYZus{}std\PYZus{}table}\PY{p}{(}\PY{n}{ctable}\PY{p}{,} \PY{n}{df}\PY{p}{,} \PY{n}{lasso01\PYZus{}feats}\PY{p}{,} \PY{n}{rad\PYZus{}dummies}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}          Coefficients  Standard Deviations
+         crim        -1.097766             7.352272
+         zn           1.033705            22.674762
+         nox         -1.838442             0.114955
+         rm           2.538782             0.703952
+         age         -0.490224            28.133344
+         dis         -2.970808             1.981123
+         ptratio     -1.502282             2.151821
+         lstat       -4.209550             7.067781
+         chas         4.156605             0.237956
+         1           -3.837608             0.200987
+         3            1.755164             0.273370
+         4           -1.121471             0.408071
+         6           -3.392725             0.193979
+         8            2.631930             0.226465
+         24           2.626204             0.441604
+\end{Verbatim}
+            
+    Let us use ``crim'' as an example. For every 7.352272 increase in the
+per capita crime rate of a town, there is an associated average/expected
+decrease of \$1097.77 in the median value of homes in that town. This
+sort of interpretation works on all of the quantitative predictors,
+however interpretation is different for dummy variables.
+
+Our dummy variables in this case are: ``chas'', ``1'', ``3'', ``4'',
+``6'', ``8'', and ``24''. Recall that a dummy variable represents
+whether or not something is true. Then, the standard deviation of a
+given dummy variable is not a very useful number when interpreting
+coefficients. We will use ``chas'' as an example. If a given tract is
+bound by the Charles river, then there is an associated average/expected
+increase of \$4,156.61 in the median value of homes in that area.
+
+Once we interpret our coefficients in this manner, we will be able to
+make inferences on what influence each predictor has on the median value
+of homes.
+
+    \hypertarget{future-improvements}{%
+\subsection{Future Improvements}\label{future-improvements}}
+
+Although we were able to create a Linear Regression model and interpret
+it to obtain some insights, there is still room for improvement in this
+analysis. For instance, while we did handle having mismatched scales, we
+would also have benefited greatly from transforming our variables
+further to ensure that our predictors are \textbf{normally distributed}.
+On top of that, we should have been more rigorous in making sure the
+assumptions of Linear Regression were met. In this case, we should have
+checked the normality of residuals and correlation between residuals and
+the target variable.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
